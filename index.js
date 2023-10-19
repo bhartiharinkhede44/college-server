@@ -53,11 +53,11 @@ app.post('/student',(req,res)=>{
     const id = Math.floor(Math.random() * 100000) + 1;
 
     const newStudent = {
-        'id':id,
-        'name':name,
-        'age':age,
-        'mobile':mobile,
-        'email':email,
+       id, // 'id':id,
+       name,// 'name':name,
+       age, // 'age':age,
+       mobile, // 'mobile':mobile,
+       email // 'email':email,
     }
 
     students.push(newStudent);
@@ -69,6 +69,26 @@ app.post('/student',(req,res)=>{
     
     })
 });
+app.get('/student',(req,res)=>{
+    const {id} = req.query;
+    let student = null;
+    students.forEach((stud)=>{
+        if (stud.id == id){
+            student = stud;
+        }
+    })
+    if (student ==null){
+        return res.json({
+            success:false,
+            message:'student not found',
+        })
+    }
+    res.json({
+        success:true,
+        data:student,
+        message:'successfully fetched student'
+    })
+})
 
 const PORT = 8080;
 
